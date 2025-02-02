@@ -23,9 +23,16 @@ jobs:
         with:
           credentials_json: ${{ secrets.TERRAFORM_GITHUB_SA_SECRET }}
 
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.TERRAFORM_GITHUB_SA_SECRET }}
+
       # Initialize Terraform
-      - name: Terraform Init with GCS Backend
-        run: terraform init -backend-config="bucket=${{ secrets.TERRAFORM_BUCKET_NAME }}"
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="credentials=${GOOGLE_APPLICATION_CREDENTIALS}"
 
       # Plan Terraform (check for changes)
       - name: Terraform Plan
@@ -37,4 +44,4 @@ jobs:
 
       # Terraform Apply (Deploy Changes) - Requires push confirmation
       - name: Terraform Apply
-        run: terraform apply
+        run: terraform apply -auto-approve tfplan
