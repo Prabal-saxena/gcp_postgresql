@@ -3,7 +3,7 @@ name: "Terraform GCP Deployment"
 on:
   push:
     branches:
-      - master # Runs when changes are pushed to master branch
+      - feature/ci_cd_implementation # Runs when changes are pushed to master branch
     paths:
       - "**.tf" # Runs only when Terraform files change
 
@@ -23,9 +23,14 @@ jobs:
         with:
           credentials_json: ${{ secrets.TERRAFORM_GITHUB_SA_SECRET }}
 
+      - name: Authenticate to GCP
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.TERRAFORM_GITHUB_SA_SECRET }}
+
       # Initialize Terraform
       - name: Terraform Init with GCS Backend
-        run: terraform init -backend-config="bucket=${{ secrets.TERRAFORM_BUCKET_NAME }}"
+        run: terraform init -backend-config="credentials=${{ secrets.TERRAFORM_GITHUB_SA_SECRET }}"
 
       # Plan Terraform (check for changes)
       - name: Terraform Plan
@@ -37,4 +42,4 @@ jobs:
 
       # Terraform Apply (Deploy Changes) - Requires push confirmation
       - name: Terraform Apply
-        run: terraform apply
+        run: terraform apply -auto-approve tfplan
