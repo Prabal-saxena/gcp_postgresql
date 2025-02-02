@@ -29,8 +29,10 @@ jobs:
           credentials_json: ${{ secrets.TERRAFORM_GITHUB_SA_SECRET }}
 
       # Initialize Terraform
-      - name: Terraform Init with GCS Backend
-        run: terraform init -backend-config="credentials=${{ secrets.TERRAFORM_GITHUB_SA_SECRET }}"
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="credentials=${GOOGLE_APPLICATION_CREDENTIALS}"
 
       # Plan Terraform (check for changes)
       - name: Terraform Plan
