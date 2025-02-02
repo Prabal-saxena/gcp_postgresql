@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - feature/ci_cd_implementation # Runs when changes are pushed to master branch
-    paths:
-      - "**.tf" # Runs only when Terraform files change
+#    paths:
+#      - "**.tf" # Runs only when Terraform files change
 
 jobs:
   terraform:
