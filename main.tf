@@ -19,3 +19,10 @@ resource "google_sql_database_instance" "pgsql-instance" {
   # use of Terraform whereas `deletion_protection_enabled` flag protects this instance at the GCP level.
   deletion_protection = false
 }
+
+terraform {
+  backend "gcs" {
+    bucket  = "terraform-state-bucket"
+    prefix  = "terraform/state"
+  }
+}

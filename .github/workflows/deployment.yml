@@ -1,0 +1,40 @@
+name: "Terraform GCP Deployment"
+
+on:
+  push:
+    branches:
+      - master # Runs when changes are pushed to master branch
+    paths:
+      - "**.tf" # Runs only when Terraform files change
+
+jobs:
+  terraform:
+    name: "Terraform Plan & Apply"
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          credentials_json: ${{ secrets.TERRAFORM_GITHUB_SA_SECRET }}
+
+      # Initialize Terraform
+      - name: Terraform Init with GCS Backend
+        run: terraform init -backend-config="bucket=${{ secrets.TERRAFORM_BUCKET_NAME }}"
+
+      # Plan Terraform (check for changes)
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      # Approval for Apply
+      - name: Wait for manual approval
+        uses: hmarr/auto-approve-action@v3
+
+      # Terraform Apply (Deploy Changes) - Requires push confirmation
+      - name: Terraform Apply
+        run: terraform apply
