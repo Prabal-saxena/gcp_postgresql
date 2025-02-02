@@ -11,7 +11,8 @@ on:
   pull_request:
     branches:
       - master # Runs when a PR is created or updated targeting main
-
+    paths:
+      - "**.tf" # Runs only when Terraform files change
 jobs:
   terraform:
     name: "Terraform Plan & Apply"
