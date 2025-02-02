@@ -10,7 +10,7 @@ name: "Terraform GCP Deployment"
 on:
   pull_request:
     branches:
-      - main # Runs when a PR is created or updated targeting main
+      - master # Runs when a PR is created or updated targeting main
 
 jobs:
   terraform:
