@@ -22,7 +22,7 @@ resource "google_sql_database_instance" "pgsql-instance" {
 
 terraform {
   backend "gcs" {
-    bucket  = "terraform-state-bucket"
-    prefix  = "terraform/state"
+    bucket  = "onlineliquorservices_bucket"
+    prefix  = ""
   }
 }
