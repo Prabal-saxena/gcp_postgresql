@@ -24,7 +24,6 @@ resource "google_sql_database_instance" "pgsql-instance" {
 resource "google_sql_user" "postgres_user" {
   name     = "developer"
   instance = google_sql_database_instance.pgsql-instance.name
-  host     = "%" # Allows connections from any host (or specify an IP/range)
   password = "developer_admin"
   project  = "noble-linker-471623-s6"
 }
