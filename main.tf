@@ -6,6 +6,7 @@ resource "google_sql_database_instance" "pgsql-instance" {
 
   settings {
     tier = "db‑f1‑micro"
+    edition = "ENTERPRISE"
     password_validation_policy {
       min_length                  = 6
       reuse_interval              = 2
