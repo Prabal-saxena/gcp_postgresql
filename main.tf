@@ -1,11 +1,11 @@
 resource "google_sql_database_instance" "pgsql-instance" {
   name             = "pg-instance"
-  project          = "spheric-base-448422-q9"
+  project          = "noble-linker-471623-s6"
   region           = "us-central1"
   database_version = "POSTGRES_15"
 
   settings {
-    tier = "db-custom-2-7680"
+    tier = "db‑f1‑micro"
     password_validation_policy {
       min_length                  = 6
       reuse_interval              = 2
