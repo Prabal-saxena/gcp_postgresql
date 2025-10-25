@@ -5,7 +5,7 @@ resource "google_sql_database_instance" "pgsql-instance" {
   database_version = "POSTGRES_15"
 
   settings {
-    tier = "db‑f1‑micro"
+    tier = "db-f1-micro"
     edition = "ENTERPRISE"
     password_validation_policy {
       min_length                  = 6
