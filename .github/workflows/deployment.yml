@@ -1,12 +1,5 @@
 name: "PGSQL Instance Creation"
 
-#on:
-#  push:
-#    branches:
-#      - master # Runs when changes are pushed to master branch
-#    paths:
-#      - "**.tf" # Runs only when Terraform files change
-
 on:
   pull_request:
     branches:
@@ -43,12 +36,6 @@ jobs:
       # Plan Terraform (check for changes)
       - name: Terraform Plan
         run: terraform plan -out=tfplan
-
-#      # Approval for Apply
-#      - name: Wait for manual approval
-#        uses: hmarr/auto-approve-action@v3 # Auto-approves PR if conditions met
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       # Terraform Apply (Deploy Changes) - Requires push confirmation
       - name: Terraform Apply
