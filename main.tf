@@ -1,6 +1,6 @@
 resource "google_sql_database_instance" "pgsql-instance" {
   name             = "pg-instance"
-  project          = "noble-linker-471623-s6"
+  project          = var.project
   region           = "us-central1"
   database_version = "POSTGRES_15"
 
@@ -25,12 +25,12 @@ resource "google_sql_user" "postgres_user" {
   name     = "developer"
   instance = google_sql_database_instance.pgsql-instance.name
   password = "Prabalsaxena98@"
-  project  = "noble-linker-471623-s6"
+  project  = var.project
 }
 
 terraform {
   backend "gcs" {
-    bucket  = "onlineliquorservices_bucket"
+    bucket  = "onlineliquorservicesbucket"
     prefix  = "terraform/postgresql/tfstate"
   }
 }
